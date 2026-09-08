@@ -1,9 +1,10 @@
 services:
   - type: web
     name: dshield-ai-backend
-    env: docker
-    dockerContext: ./dshield-ai/backend
-    dockerfilePath: ./dshield-ai/backend/Dockerfile
+    env: python
+    rootDir: dshield-ai/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     plan: free # Can be upgraded to 'starter' or 'standard' depending on ML RAM requirements
     healthCheckPath: /
     envVars:
