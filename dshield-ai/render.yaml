@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dshield-ai-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free # Can be upgraded to 'starter' or 'standard' depending on ML RAM requirements
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        # Render will supply a sqlite DB temporarily if left blank, but for prod use a managed PostgreSQL URL.
+        value: sqlite:///./dshield.db
+      - key: CORS_ORIGINS
+        # Update this to your deployed Vercel frontend URL once you have it.
+        value: "*"
